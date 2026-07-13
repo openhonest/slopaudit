@@ -1,0 +1,503 @@
+/* openhonest.org — light-theme institutional sibling of the Honest family */
+
+@font-face {
+  font-family: 'Literata Fallback';
+  src: local('Georgia'), local('Times New Roman');
+  size-adjust: 103%;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Menlo'), local('Courier New');
+  size-adjust: 95%;
+  ascent-override: 100%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
+:root {
+  /* Background and surface */
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --surface-alt: #f4f4f5;
+  --border: #e4e4e7;
+
+  /* Text */
+  --text: #1a1a1c;
+  --text-dim: #52525b;
+  --text-muted: #71717a;
+
+  /* Institutional accents */
+  --institutional: #1f2937;
+  --accent: #16a34a;
+  --accent-dim: rgba(22, 163, 74, 0.12);
+
+  /* Code blocks (inverted island within light theme) */
+  --code-bg: #1a1a1c;
+  --code-text: #e4e4e7;
+
+  /* Typography */
+  --serif: 'Literata', 'Literata Fallback', Georgia, serif;
+  --mono: 'JetBrains Mono', 'JetBrains Mono Fallback', Menlo, monospace;
+
+  /* Layout */
+  --content-max: 720px;
+  --wide-max: 960px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation */
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--institutional);
+  text-decoration: none;
+}
+
+.seal img {
+  height: 28px;
+  width: 28px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  font-family: var(--mono);
+  font-size: 0.9rem;
+}
+
+nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+  letter-spacing: 0.02em;
+}
+
+nav a:hover, nav a.active {
+  color: var(--accent);
+}
+
+/* Main content */
+main {
+  flex: 1;
+  padding: 4rem 2rem 6rem;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  width: 100%;
+}
+
+main.wide {
+  max-width: var(--wide-max);
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--mono);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--institutional);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+}
+
+/* Body text */
+p {
+  margin-bottom: 1.25rem;
+}
+
+ul, ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: opacity 0.15s;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+strong {
+  font-weight: 700;
+  color: var(--institutional);
+}
+
+em {
+  font-style: italic;
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--surface-alt);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 1.25rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  font-size: 0.85em;
+  line-height: 1.5;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0;
+}
+
+/* Landing page specific */
+.landing-hero {
+  text-align: center;
+  padding: 4rem 0 3rem;
+}
+
+.landing-hero .seal-large {
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+.landing-hero .seal-large img {
+  height: 72px;
+  width: 72px;
+}
+
+.landing-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.landing-hero .tagline {
+  font-family: var(--mono);
+  color: var(--text-dim);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  margin-bottom: 3rem;
+}
+
+.landing-paragraphs {
+  max-width: 600px;
+  margin: 0 auto 4rem;
+  text-align: left;
+}
+
+.path-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.path-card {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.path-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+.path-card .arrow {
+  font-family: var(--mono);
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.path-card h3 {
+  font-family: var(--mono);
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+  color: var(--institutional);
+}
+
+.path-card p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Document index (governance) */
+.doc-index {
+  list-style: none;
+  padding: 0;
+}
+
+.doc-index li {
+  border-bottom: 1px solid var(--border);
+  padding: 1.5rem 0;
+  margin-bottom: 0;
+}
+
+.doc-index li:last-child {
+  border-bottom: none;
+}
+
+.doc-index .doc-title {
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--institutional);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.doc-index .doc-title:hover {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.doc-index .doc-desc {
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Status page */
+.status-meta {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  padding: 0.75rem 1rem;
+  background: var(--surface-alt);
+  border-left: 3px solid var(--accent);
+}
+
+.status-section {
+  margin-bottom: 3rem;
+}
+
+.status-list {
+  list-style: none;
+  padding: 0;
+}
+
+.status-list li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.status-list li::before {
+  content: '→';
+  font-family: var(--mono);
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  background: var(--surface);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+footer a {
+  color: var(--text-dim);
+  margin: 0 0.75rem;
+}
+
+/* Governance document pages (formal styling) */
+.gov-doc {
+  font-family: var(--serif);
+}
+
+.gov-doc h2 {
+  margin-top: 2.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+
+.gov-doc h3 {
+  font-family: var(--serif);
+  font-weight: 700;
+  color: var(--institutional);
+  margin-top: 1.75rem;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  html { font-size: 16px; }
+  nav { padding: 1rem; }
+  nav ul { gap: 1rem; font-size: 0.8rem; }
+  main { padding: 2rem 1.25rem 4rem; }
+  .path-grid { grid-template-columns: 1fr; }
+  .landing-hero h1 { font-size: 2rem; }
+}
+
+/* ===== Slop Audit standard page additions ===== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.75rem;
+  font-size: 0.95rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.65rem 0.9rem 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+th {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+td:first-child, th:first-child {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+  width: 3.5rem;
+}
+
+.dim-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  margin: 1.5rem 0 1.75rem;
+}
+
+.dim {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.dim .num {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.78rem;
+  margin-right: 0.4rem;
+}
+
+.dim .name {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--institutional);
+  font-size: 0.9rem;
+}
+
+.dim .cat {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 720px) {
+  .dim-grid { grid-template-columns: 1fr; }
+  td:first-child, th:first-child { width: auto; }
+}

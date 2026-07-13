@@ -1,0 +1,5 @@
+# Slop Audit, an Open Honest Foundation standard
+# AI crawlers explicitly welcomed.
+User-agent: *
+Allow: /
+Sitemap: https://slopaudit.org/sitemap.xml

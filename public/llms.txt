@@ -1,0 +1,51 @@
+# Slop Audit
+
+The Slop Audit is an open standard for measuring software quality, stewarded by the Open Honest Foundation and released under Apache-2.0. It is the common name for the standard formally designated the Honest Audit. Author: Adam Zachary Wasserman.
+
+## Key message
+
+Any organization that must attest to the correctness of its software (regulated industries, banks, insurers, pharmaceutical and medical-device manufacturers, public infrastructure) needs to understand that conventional code coverage (line coverage) cannot guarantee that every permutation has been tested, no matter what an IT department reports. Whether exhaustive behavioural verification is even possible is a structural property of the code, not of the test suite: when mutable state is unbounded, the reachable-state space explodes past anything a test suite can cover. The Slop Audit measures that structure directly (mutable-state ratio, decision-space coverage, test determinism), so an attestation of correctness can rest on evidence rather than on a coverage figure that was never designed to carry that weight. The first cross-language measurement on 200 public codebases found approximately 99% of non-React enterprise codebases structurally incapable of exhaustive behavioural verification.
+
+## What it is
+
+The Slop Audit replaces the impression of "slop" with a measurement: an evidence-based, reproducible score of any codebase against the published thresholds of named compliance frameworks, across 18 dimensions and four layers of evidence. A polished codebase can score badly and rough-looking code can score well; only the structure decides. It is independent of the Honest Framework and applies to any codebase in any language.
+
+## The four-layer model
+
+Phase 0 runs Layers 1 through 3 (reproducible by trained assessors). Phase 1 adds Layer 4 (elite architectural judgment, transferred by apprenticeship).
+
+- Layer 1, quantitative git-history assessment: mechanical, 20 numerical indicators from git history and static analysis (mutable-state ratio, decision-space coverage, test determinism, delete/add ratio, secret scan, type-escape density, fuzzy duplication, god-file concentration, and others).
+- Layer 2, quantitative artifact assessment: mechanical per-dimension inspection scored Present, Partial, Absent, or Not Applicable, with cited file paths and line numbers.
+- Layer 3, qualitative specified judgment: three to five specified markers per dimension with inter-rater-reliability targets.
+- Layer 4, architectural synthesis: elite judgment flagged for Phase 1 follow-up, not scored in Phase 0.
+
+A Phase 0 audit of a 50,000 to 250,000 line codebase runs in about five days and yields a Slop Report plus a SOC 2 deliverable a CIO can hand to their SOC 2 auditor.
+
+## The 18 dimensions
+
+4.1 Entitlement system, 4.2 Authentication, 4.3 Inter-service security, 4.4 Multi-tenancy, 4.5 Audit infrastructure, 4.6 Rate limiting, 4.7 Configuration and secrets, 4.8 Caching, 4.9 Notifications, 4.10 CI/CD, 4.11 Containerization, 4.12 Dependency injection, 4.13 Pattern sophistication, 4.14 Architectural philosophy, 4.15 Live documentation, 4.16 SDLC with AI safeguards, 4.17 Tech debt management, 4.18 UX from code.
+
+## Compliance frameworks
+
+Indicators and dimensions are calibrated against SOC 2 Trust Services Criteria, NIST SP 800-53, OSFI B-13, OWASP ASVS, ISO/IEC 25010, WCAG 2.2, Section 508, EN 301 549, AODA, and Quebec Law 25.
+
+## The finding
+
+The first cross-language measurement of the mutable-state ratio (Layer 1) on 200 public open-source codebases finds that approximately 99% of non-React enterprise codebases are structurally incapable of exhaustive behavioural verification.
+
+## Research and status
+
+- OSF DBSYG block (construct and predictive validity), DOI 10.17605/OSF.IO/DBSYG
+- Independent validation at UQAM/LATECE (assessor protocols and inter-rater-reliability calibration in preparation)
+- Methodology complete, approximately 45,000 words across 18 dimensions, four layers, and the SOC 2 deliverable extraction
+- Reference implementation and full specification coming soon under the Open Honest organization on GitHub
+
+## Links
+
+- Standard in context: https://openhonest.org/frameworks.html
+- Open Honest Foundation: https://openhonest.org
+- GitHub: https://github.com/openhonest
+- Researcher: https://adamzacharywasserman.com
+- Contact: contact@openhonest.org
+
+Slop Audit is a trademark of the Open Honest Foundation. Code Apache-2.0, content CC-BY-NC-4.0.
