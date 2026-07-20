@@ -25,8 +25,6 @@ If your organization has to **attest to the correctness of its software**, regul
 
 ## Coverage is not proof of correctness
 
-Line coverage measures how much of your code your tests executed. It does not measure how much of your software's behaviour those tests actually pinned down. A codebase can report 95% line coverage and still leave the overwhelming majority of its reachable states, the permutations a regulator or an auditor cares about, entirely unverified. No matter what your IT department reports, a coverage percentage cannot guarantee that every permutation has been tested.
-
 The conventional standard for software testing is line coverage, or coverage for short. Coverage tells you how many lines of your code was executed by tests. 
 
 Importantly, it does not tell you how much of your software’s actual behavior was properly verified. You can hit 95% coverage and still leave the vast majority of real-world scenarios—the ones regulators and auditors care about—completely untested.

@@ -40,8 +40,13 @@ The first cross-language measurement of the mutable-state ratio (Layer 1) on 200
 - Methodology complete, approximately 45,000 words across 18 dimensions, four layers, and the SOC 2 deliverable extraction
 - Reference implementation and full specification coming soon under the Open Honest organization on GitHub
 
+## Umbra
+
+Umbra is the newest instrument in the Slop Audit, and the smallest: where the Slop Audit measures whether an entire codebase is structurally capable of exhaustive verification, Umbra applies the same premise to a single module and its test suite. It is an apophatic code auditor: it reports what a test suite is structurally unable to see and proves each gap with a real failing test. Its metric is the Silence index (100 x closeable silence sites / total closeable facets), the honest complement to coverage: higher means more blind spots. It audits Python, TypeScript, JavaScript, Java, Rust, and Go, each parsed with tree-sitter and run with its own native test runner and coverage tool. A deterministic layer runs with zero model calls; GPT-5.6 is used only where structure runs out, on one isolated function plus its type contract plus one located gap, and every generated test is executed and kept only if it genuinely fails. Untyped code is reported as 100% silence, closeable by declaring a type rather than writing a test. Umbra runs as a plugin inside the coding agent's loop and as a standalone CLI. Open source under Apache-2.0 at https://github.com/openhonest/umbra. Page: https://slopaudit.org/umbra.html.
+
 ## Links
 
+- Umbra (module-scale instrument): https://slopaudit.org/umbra.html
 - Standard in context: https://openhonest.org/frameworks.html
 - Open Honest Foundation: https://openhonest.org
 - GitHub: https://github.com/openhonest

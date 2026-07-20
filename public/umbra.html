@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umbra: reveal what your tests cannot see — the Slop Audit at module scale</title>
+  <meta name="description" content="Umbra is the newest instrument in the Slop Audit: an apophatic code auditor that reports what a test suite is structurally unable to see and proves each gap with a real failing test. It reports a Silence index, the honest complement to coverage, across six languages. Stewarded by the Open Honest Foundation, Apache-2.0.">
+  <meta name="author" content="Adam Zachary Wasserman">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://slopaudit.org/umbra.html">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/svg+xml" href="img/seal.svg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Umbra: reveal what your tests cannot see">
+  <meta property="og:description" content="An apophatic code auditor that reports what your tests are structurally unable to see and proves each gap with a real failing test. The Slop Audit discipline, taken down to a single module and its test suite.">
+  <meta property="og:url" content="https://slopaudit.org/umbra.html">
+  <meta property="og:site_name" content="Slop Audit">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Umbra: reveal what your tests cannot see">
+  <meta name="twitter:description" content="Coverage says what ran. Umbra reports what your tests could never see, and proves it with a failing test.">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://slopaudit.org/umbra.html",
+        "url": "https://slopaudit.org/umbra.html",
+        "name": "Umbra",
+        "isPartOf": { "@id": "https://slopaudit.org/#website" },
+        "about": { "@id": "https://slopaudit.org/umbra.html#software" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://slopaudit.org/umbra.html#software",
+        "name": "Umbra",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS, Linux",
+        "programmingLanguage": ["Python", "TypeScript", "JavaScript", "Java", "Rust", "Go"],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "author": { "@type": "Person", "name": "Adam Zachary Wasserman", "url": "https://adamzacharywasserman.com" },
+        "publisher": { "@id": "https://openhonest.org/#org" },
+        "description": "An apophatic code auditor: it reports what a test suite is structurally unable to see and proves each gap with a real failing test, reporting a Silence index as the honest complement to coverage.",
+        "isBasedOn": "https://slopaudit.org"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav>
+    <a href="/" class="seal">
+      <img src="img/seal.svg" alt="Open Honest Foundation Seal">
+      <span>SLOP AUDIT</span>
+    </a>
+    <ul>
+      <li><a href="/">Slop Audit</a></li>
+      <li><a href="#silence">Silence index</a></li>
+      <li><a href="#languages">Languages</a></li>
+      <li><a href="#codex">In Codex</a></li>
+      <li><a href="#itself">It audits itself</a></li>
+      <li><a href="#get">Get it</a></li>
+    </ul>
+  </nav>
+
+  <main class="wide">
+
+    <section class="landing-hero">
+      <h1>Umbra</h1>
+      <p class="tagline">Reveals what your tests are not telling you.</p>
+      <div class="landing-paragraphs">
+        <p>Umbra is the newest instrument in the <a href="/">Slop Audit</a>, and the smallest. Where the Slop Audit measures whether an entire codebase is <em>structurally capable</em> of exhaustive verification, Umbra takes the same premise down to a single module and its test suite: name what the instrument cannot see. It is an <strong>apophatic</strong> code auditor, it seeks what cannot be named, and it proves what it finds with a real failing test. Stewarded by the <a href="https://openhonest.org">Open Honest Foundation</a>, released under Apache-2.0.</p>
+      </div>
+    </section>
+
+    <h2 id="coverage">Coverage says what ran. It cannot say what was missed.</h2>
+    <p>Every other code-quality tool reports what it found. Coverage says which lines ran. A linter says which lines smell. A green test suite says the tests it has all pass. None of them report what the tests are structurally unable to see, and that blind region, the <em>umbra</em>, is exactly where generated code fails in production.</p>
+    <p>This is the Slop Audit's argument at the scale of one function: coverage measures what ran, not all the ways the code could run. You can hit 100% coverage and still have no warning that any given input will break you, because coverage only ever sees the paths your tests already walk. Every instrument has a blind spot it cannot see by construction, and failure lives in that blind spot.</p>
+
+    <h2 id="silence">The Silence index</h2>
+    <p>Umbra reports a <strong>Silence index</strong>: the honest complement to coverage. Where coverage is the percentage of lines that ran, the Silence index is the percentage of closeable facets that the suite leaves silent, the reachable, meaningful cases nothing asserts. It is shown beside the coverage number it corrects. Higher means more blind spots.</p>
+    <p class="def"><code>Silence index = 100 &times; closeable silence sites &divide; total closeable facets</code></p>
+    <p>A facet is one branch, one candidate input region, one annotated return contract for a called function, one reachable exception path, or one runtime honesty property. It is <em>closeable</em> when Umbra has enough evidence to decide whether the suite closes it. The index is not a vibe: it comes from a body of formal software-measurement work, the same premise the Slop Audit rests on, given an honest denominator.</p>
+
+    <h2 id="how">What Umbra does</h2>
+    <p>For a module and its test suite, Umbra does four things:</p>
+    <table>
+      <thead>
+        <tr><th>Step</th><th>What happens</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Map</td><td>Which branches, input regions, and invariants the suite actually exercises.</td></tr>
+        <tr><td>Find the silence</td><td>The reachable states nothing asserts: the empty collection, the boundary value, the negative input, the enum variant no test constructs, the return contract no test checks.</td></tr>
+        <tr><td>Prove it</td><td>GPT-5.6 writes a concrete failing test that lives in the silence; Umbra runs it and keeps it only if it genuinely fails. If it cannot demonstrate the gap, it does not claim it.</td></tr>
+        <tr><td>Score it</td><td>The Silence index, reported beside coverage. Not "what ran" but "what your tests will not warn you about."</td></tr>
+      </tbody>
+    </table>
+    <p>The output is a report made for humans, not the usual wall of test-runner text: a short account that ends on a real, failing test Umbra wrote, sitting in the blind spot your green suite swore did not exist. It renders in the terminal, as Markdown, and as a self-contained HTML page.</p>
+    <pre><code>def total(items: list[float], discount: float) -> float:
+    return sum(items) - discount
+
+# Umbra's generated proof — verified fail
+args = ([10.0], -2.0)
+result = total(*args)
+assert result == 10.0    # a negative discount should not increase the total
+# AssertionError: 12.0 == 10.0</code></pre>
+
+    <h2 id="languages">Six languages</h2>
+    <p>Umbra audits <strong>Python, TypeScript, JavaScript, Java, Rust, and Go.</strong> Each language is parsed with tree-sitter, then Umbra reads the test file to identify its framework and runs the matching one, taking coverage from that language's own tool. A framework it cannot identify, or a run it cannot complete, is reported as not measured with the reason attached, never a guessed number.</p>
+    <table>
+      <thead>
+        <tr><th>Language</th><th>Test runner</th><th>Coverage</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Python</td><td>pytest</td><td>coverage.py</td></tr>
+        <tr><td>TypeScript / JavaScript</td><td>Vitest or Node <code>node:test</code></td><td>Vitest or Node V8</td></tr>
+        <tr><td>Java</td><td>JUnit or a throw-on-failure <code>main</code></td><td>JaCoCo</td></tr>
+        <tr><td>Rust</td><td><code>#[test]</code>, inline or separate</td><td>cargo-llvm-cov</td></tr>
+        <tr><td>Go</td><td><code>go test</code>, named and external packages</td><td>Go cover profile</td></tr>
+      </tbody>
+    </table>
+    <p>Rust is the showcase. A Rust <code>enum</code> is a finite Set with exhaustive <code>match</code>, exactly the case <a href="https://github.com/openhonest">Honest Test</a> calls total: a bounded space you can enumerate rather than sample. Auditing Rust, Umbra treats each enum variant as its own region and reports the variants a test never constructs. Bounded types get enumerated, not guessed.</p>
+
+    <h2 id="undeclared">Silence you close with a type, not a test</h2>
+    <p>When a function declares no types, plain JavaScript, or Python with its annotations stripped, Umbra has no map of valid inputs, so it refuses to fake a low score. It reports <strong>100% silence</strong>, with the plain reason that the domain is undeclared, and names the remedy as declaring a type, not writing a test. You cannot show a test suite covers a domain the author never stated.</p>
+    <p>Coverage-proven branches still get real failing-test proofs even there, because coverage measures them directly without a type. So the two kinds of silence stay distinct: ordinary silence you close by writing a test, and undeclared-domain silence you close by declaring a type.</p>
+
+    <h2 id="extend">Two extensions</h2>
+    <p><strong>Harden mode</strong> turns the audit into a loop. It generates the tests that close each open facet, keeps the passing ones as regression guards and the failing ones as bug proofs, re-audits, and repeats until no closeable silence remains. The Silence index is the loop's convergence target, so "done" is definable and measurable, unlike coverage-chasing, which never ends and can be gamed.</p>
+    <p><strong>The call-stack map</strong> classifies each function's operations into four roles, input boundary, orchestrator, pure core, output boundary, and renders them with I/O on the outside and pure logic in the middle. A write sitting in the pure lane is an honesty violation, visible as a shape. Umbra emits the same map as a plain-text architecture spec in the Honest Framework's FOSS <code>.hd</code> format, so the audit is interoperable, not just a picture.</p>
+
+    <h2 id="model">Used where structure runs out, and nowhere else</h2>
+    <p>The core design decision is where <em>not</em> to use the model. The deterministic layer, reachability and branch analysis, which invariants the types encode, what the suite exercises, runs with zero model calls. Only once a silence is located mechanically does GPT-5.6 come in, and it receives one already-isolated function, its type contract, and one gap description, never the repository, never the test files, never any other function.</p>
+    <p>Every case the model proposes is executed. Only cases that actually fail survive into the report. The model suggests; the runtime adjudicates through an <strong>execution gate</strong>. No claim ships that the tool cannot reproduce. It is the same discipline Umbra applies to your code, turned on its own tools: name what an instrument can and cannot judge, and use it only where it can.</p>
+
+    <h2 id="codex">Made to run inside the agent's loop</h2>
+    <p>Umbra's home is the agent's own loop. An agent writes hundreds of lines in a minute, and nobody hand-runs an audit on every generation, so the missing case slips through precisely because, at that moment, no one is there to think of it. Umbra runs where the code is born: as a plugin inside the coding agent, it audits what was just written, names the silence, and hands back the failing test, in the same loop, before you read the diff. It also runs as a standalone command-line tool for CI and local use.</p>
+
+    <h2 id="itself">It audits itself</h2>
+    <p>The strongest thing you can say about an honesty tool is that it survives its own audit. Point Umbra at its own core and it reports <strong>94.4% coverage and 65.4% Silence index</strong> on its largest module, 138 closeable silences across 211 facets: near-total line coverage, and two-thirds of the meaningful facets still unasserted. It does not flinch, and it does not pretend the number is zero.</p>
+    <p>And it goes past the number. Run on itself, it caught a real bug in its own verification gate: generated proofs were loading the audited module anonymously, so any code with relative imports died at the import before the assertion ever ran. It found the hole in itself, and the regression test is the receipt. The auditor passed its own audit by first failing it.</p>
+
+    <h2 id="lineage">Lineage</h2>
+    <p>Umbra is not invented from nothing. The Slop Audit applies one premise, every instrument reveals only what it was built to reveal and is silent on the rest, to an enterprise codebase and its compliance posture, across 18 dimensions and four layers. Umbra applies the same premise to a single module and its test suite. Same idea, smaller target.</p>
+    <p>The Silence index rests on a second Foundation standard, <strong>Honest Test</strong>, which makes the coverage argument precise: unit tests and property tests both <em>sample</em> from a potentially infinite input space, so they can never reach total coverage, while a bounded space can be exhausted and made total. Honest Test is the constructive answer, shrink the space until you can run all of it. Umbra is the diagnostic complement for the code you cannot shrink: it measures the gap between what your sampling touched and what total coverage would require, and reports that gap as the Silence index.</p>
+
+    <h2 id="get">Get it</h2>
+    <p>Umbra is open source under Apache-2.0. Run it against your own modules, in any of the six languages, and cite it, without asking permission and without buying anything.</p>
+    <ul class="status-list">
+      <li><a href="https://github.com/openhonest/umbra">Umbra on GitHub</a> (source, the Codex plugin, and the reproducible benchmark)</li>
+      <li><a href="/">The Slop Audit</a>, the standard Umbra is the module-scale instrument of</li>
+      <li><a href="https://openhonest.org/frameworks.html">The Honest Framework in context</a> at the Open Honest Foundation</li>
+      <li><a href="mailto:contact@openhonest.org">contact@openhonest.org</a></li>
+    </ul>
+
+  </main>
+
+  <footer>
+    <a href="https://openhonest.org">Open Honest Foundation</a>
+    <a href="https://github.com/openhonest">GitHub</a>
+    <a href="https://adamzacharywasserman.com">Researcher</a>
+    <a href="mailto:contact@openhonest.org">Contact</a>
+    <span>Slop Audit is a trademark of the Open Honest Foundation. Code Apache-2.0 · Content CC-BY-NC-4.0</span>
+  </footer>
+</body>
+</html>
